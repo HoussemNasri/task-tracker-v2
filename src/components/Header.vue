@@ -1,15 +1,24 @@
 <template>
    <header>
       <h1>{{ title }}</h1>
-      <Button title="Add Task" color="green" />
+      <Button
+         @click="toggleAddTask()"
+         :title="state.isAddTaskShown ? 'Close' : 'Add Task'"
+         :color="state.isAddTaskShown ? 'red' : 'green'" />
    </header>
 </template>
 
 <script>
    import Button from "./Button.vue";
+   import { store } from "../Store";
 
    export default {
       name: "Header",
+      data() {
+         return {
+            state: store.state,
+         };
+      },
       props: {
          title: {
             type: String,
@@ -18,6 +27,11 @@
       },
       components: {
          Button,
+      },
+      methods: {
+         toggleAddTask() {
+            this.state.isAddTaskShown = !this.state.isAddTaskShown;
+         },
       },
    };
 </script>

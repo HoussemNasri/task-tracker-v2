@@ -5,6 +5,7 @@ export const store = {
 
   state: reactive({
     tasks: [],
+    isAddTaskShown: false,
   }),
 
   deleteTask(id) {
@@ -12,11 +13,23 @@ export const store = {
   },
 
   addTask(task) {
-    this.state.tasks.push(task);
+    this.state.tasks = [...this.state.tasks, task];
   },
 
   addAllTasks(tasks) {
-    this.state.tasks.push(tasks);
+    this.state.tasks = [...this.state.tasks, tasks];
+  },
+
+  getTaskById(id) {
+    return this.state.tasks.find((t) => t.id == id);
+  },
+
+  toggleReminder(taskId) {
+    const task = this.getTaskById(taskId);
+    if (task == null) {
+      throw new Error(`Invalid task id: ${taskId}`);
+    }
+    task.reminder = !task.reminder;
   },
 
   reloadTasks() {

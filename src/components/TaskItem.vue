@@ -1,8 +1,11 @@
 <template>
-   <div :class="['task', task.reminder ? 'reminder' : '']">
+   <div
+      @dblclick="onDoubleClick()"
+      :class="['task', task.reminder ? 'reminder' : '']"
+   >
       <h3>
          {{ task.text }}
-         <i @click="onDelete()" class="fas fa-times"></i>
+         <i @click="onDeleteClicked()" class="fas fa-times"></i>
       </h3>
       <p>{{ task.day }}</p>
    </div>
@@ -13,15 +16,17 @@
 
    export default {
       name: "TaskItem",
-      data() {},
       props: {
          task: Object,
       },
       methods: {
-         onDelete() {
+         onDeleteClicked() {
             if (confirm(`Are you sure to delete task of id ${this.task.id}`)) {
                store.deleteTask(this.task.id);
             }
+         },
+         onDoubleClick() {
+            store.toggleReminder(this.task.id);
          },
       },
    };

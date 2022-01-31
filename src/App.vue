@@ -3,56 +3,27 @@
 <template>
    <div class="container">
       <Header title="Task Tracker" />
-      <Tasks @delete-task="deleteTask" :tasks="tasks" />
+      <Tasks @delete-task="deleteTask" :tasks="sharedState.tasks" />
    </div>
 </template>
 
 <script>
    import Header from "./components/Header.vue";
    import Tasks from "./components/Tasks.vue";
+   import { store } from "./Store.js";
 
    export default {
       name: "App",
       components: { Header, Tasks },
       data() {
          return {
-            tasks: Array,
+            privateState: {},
+            sharedState: store.state,
          };
       },
-      methods: {
-         deleteTask(id) {
-            console.info(
-               `Wating for user confirmation to delete task with id ${id}`
-            );
-            if (confirm("Are you sure?")) {
-               console.info("Deleting is confirmed");
-               this.tasks = this.tasks.filter((_) => _.id != id);
-            } else {
-               console.info("Deleting is canceled");
-            }
-         },
-      },
+      methods: {},
       created() {
-         this.tasks = [
-            {
-               id: "1",
-               text: "Doctors Appointment",
-               day: "March 5th at 2:30pm",
-               reminder: true,
-            },
-            {
-               id: "2",
-               text: "Meeting with boss",
-               day: "March 6th at 1:30pm",
-               reminder: true,
-            },
-            {
-               id: "3",
-               text: "Food shopping",
-               day: "March 7th at 2:00pm",
-               reminder: false,
-            },
-         ];
+         store.reloadTasks();
       },
    };
 </script>

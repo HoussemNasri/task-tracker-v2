@@ -9,14 +9,19 @@
 </template>
 
 <script>
+   import { store } from "../Store.js";
+
    export default {
       name: "TaskItem",
+      data() {},
       props: {
          task: Object,
       },
       methods: {
          onDelete() {
-            this.$emit("delete-task", this.task.id);
+            if (confirm(`Are you sure to delete task of id ${this.task.id}`)) {
+               store.deleteTask(this.task.id);
+            }
          },
       },
    };

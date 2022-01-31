@@ -1,6 +1,6 @@
 <template>
    <div v-for="task in tasks">
-      <TaskItem @delete-task="$emit('delete-task', task.id)" :task="task" />
+      <TaskItem :task="task" />
    </div>
 </template>
 
@@ -13,9 +13,5 @@
       props: {
          tasks: Array,
       },
-      emits: ["delete-task"],
    };
 </script>
-
-<style>
-</style>

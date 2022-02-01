@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: '/task-tracker-v2/'
-  }
+  publicPath: process.env.NODE_ENV === "production" ? "/task-tracker-v2/" : "/",
+};

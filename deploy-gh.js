@@ -6,7 +6,7 @@ const fs = require("fs");
     await execa("git", ["checkout", "--orphan", "gh-pages"]);
     // eslint-disable-next-line no-console
     console.log("Building started...");
-    await execa("npm", ["run", "build"]);
+    await execa("npm", ["run", "build-prod"]);
     // Understand if it's dist or build folder
     const folderName = fs.existsSync("dist") ? "dist" : "build";
     await execa("git", ["--work-tree", folderName, "add", "--all"]);

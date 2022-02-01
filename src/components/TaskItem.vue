@@ -49,4 +49,7 @@
       align-items: center;
       justify-content: space-between;
    }
+   h3,  p {
+      user-select: none;
+   }
 </style>

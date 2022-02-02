@@ -8,50 +8,67 @@ export const store = {
     isAddTaskShown: false,
   }),
 
-  deleteTask(id) {
+  async deleteTask(id) {
+    const task = this.fetchTaskById(id);
+    if (task == undefined) {
+      throw new Error(`Invalid task id: ${id}`);
+    }
+
     this.state.tasks = this.state.tasks.filter((t) => t.id != id);
+
+    await fetch(`http://localhost:5000/tasks/${id}`, {
+      method: "DELETE",
+    });
   },
 
-  addTask(task) {
+  async addTask(task) {
+    await fetch("http://localhost:5000/tasks", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(task),
+    });
+
     this.state.tasks = [...this.state.tasks, task];
+
+    await this.reloadTasks();
   },
 
   addAllTasks(tasks) {
     this.state.tasks = [...this.state.tasks, tasks];
   },
 
+  async fetchTaskById(id) {
+    return await (await fetch(`http://localhost:5000/tasks/${id}`)).json();
+  },
+
   getTaskById(id) {
     return this.state.tasks.find((t) => t.id == id);
   },
 
-  toggleReminder(taskId) {
+  async toggleReminder(taskId) {
     const task = this.getTaskById(taskId);
-    if (task == null) {
+    const updatedTask = { ...task, reminder: !task.reminder };
+
+    if (task == undefined) {
       throw new Error(`Invalid task id: ${taskId}`);
     }
+
+    await fetch(`http://localhost:5000/tasks/${taskId}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(updatedTask),
+    });
+
     task.reminder = !task.reminder;
   },
 
-  reloadTasks() {
-    this.state.tasks = [
-      {
-        id: "1",
-        text: "Doctors Appointment",
-        day: "March 5th at 2:30pm",
-        reminder: true,
-      },
-      {
-        id: "2",
-        text: "Meeting with boss",
-        day: "March 6th at 1:30pm",
-        reminder: true,
-      },
-      {
-        id: "3",
-        text: "Food shopping",
-        day: "March 7th at 2:00pm",
-        reminder: false,
-      },
-    ];
+  async reloadTasks() {
+    const res = await fetch("http://localhost:5000/tasks");
+    const data = await res.json();
+    this.state.tasks = data;
   },
 };

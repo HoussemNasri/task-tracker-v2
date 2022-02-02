@@ -20,13 +20,13 @@
          task: Object,
       },
       methods: {
-         onDeleteClicked() {
+         async onDeleteClicked() {
             if (confirm(`Are you sure to delete task of id ${this.task.id}`)) {
-               store.deleteTask(this.task.id);
+               await store.deleteTask(this.task.id);
             }
          },
-         onDoubleClick() {
-            store.toggleReminder(this.task.id);
+         async onDoubleClick() {
+            await store.toggleReminder(this.task.id);
          },
       },
    };

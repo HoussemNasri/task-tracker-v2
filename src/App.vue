@@ -26,8 +26,8 @@
             sharedState: store.state,
          };
       },
-      created() {
-         store.reloadTasks();
+      async created() {
+         await store.reloadTasks();
       },
    };
 </script>

@@ -33,7 +33,7 @@
          };
       },
       methods: {
-         onSubmit(e) {
+         async onSubmit(e) {
             e.preventDefault();
             if (!this.isInputCorrect()) {
                return;
@@ -47,7 +47,7 @@
             };
             this.clearForm();
 
-            store.addTask(toAddTask);
+            await store.addTask(toAddTask);
          },
          clearForm() {
             this.text = "";

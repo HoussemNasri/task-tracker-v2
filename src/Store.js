@@ -16,13 +16,13 @@ export const store = {
 
     this.state.tasks = this.state.tasks.filter((t) => t.id != id);
 
-    await fetch(`http://localhost:5000/tasks/${id}`, {
+    await fetch(`api/tasks/${id}`, {
       method: "DELETE",
     });
   },
 
   async addTask(task) {
-    await fetch("http://localhost:5000/tasks", {
+    await fetch("api/tasks", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -40,7 +40,7 @@ export const store = {
   },
 
   async fetchTaskById(id) {
-    return await (await fetch(`http://localhost:5000/tasks/${id}`)).json();
+    return await (await fetch(`api/tasks/${id}`)).json();
   },
 
   getTaskById(id) {
@@ -55,7 +55,7 @@ export const store = {
       throw new Error(`Invalid task id: ${taskId}`);
     }
 
-    await fetch(`http://localhost:5000/tasks/${taskId}`, {
+    await fetch(`api/tasks/${taskId}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -67,7 +67,7 @@ export const store = {
   },
 
   async reloadTasks() {
-    const res = await fetch("http://localhost:5000/tasks");
+    const res = await fetch("api/tasks");
     const data = await res.json();
     this.state.tasks = data;
   },

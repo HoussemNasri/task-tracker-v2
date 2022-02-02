@@ -36,9 +36,9 @@ export const store = {
   },
 
   async addAllTasks(tasks) {
-    tasks.array.forEach((task) => {
+    for (const task of tasks) {
       await this.addTask(task);
-    });
+    }
   },
 
   async fetchTaskById(id) {

@@ -1,4 +1,4 @@
-# task-tracker-v2
+# Task Tracker
 
 ## Project setup
 ```

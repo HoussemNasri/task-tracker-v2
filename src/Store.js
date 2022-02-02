@@ -35,8 +35,10 @@ export const store = {
     await this.reloadTasks();
   },
 
-  addAllTasks(tasks) {
-    this.state.tasks = [...this.state.tasks, tasks];
+  async addAllTasks(tasks) {
+    tasks.array.forEach((task) => {
+      await this.addTask(task);
+    });
   },
 
   async fetchTaskById(id) {

@@ -34,8 +34,6 @@ export const store = {
     });
 
     this.state.tasks = [...this.state.tasks, task];
-
-    await this.reloadTasks();
   },
 
   async addAllTasks(tasks) {

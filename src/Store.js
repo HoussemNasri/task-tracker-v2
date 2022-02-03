@@ -1,8 +1,11 @@
 import { reactive } from "vue";
 
+const apiUrl = process.env.VUE_APP_API_URL;
+
+console.log(`API URL: ${apiUrl}`);
+
 export const store = {
   debug: true,
-
   state: reactive({
     tasks: [],
     isAddTaskShown: false,
@@ -16,13 +19,13 @@ export const store = {
 
     this.state.tasks = this.state.tasks.filter((t) => t.id != id);
 
-    await fetch(`api/tasks/${id}`, {
+    await fetch(`${apiUrl}/tasks/${id}`, {
       method: "DELETE",
     });
   },
 
   async addTask(task) {
-    await fetch("api/tasks", {
+    await fetch(`${apiUrl}/tasks`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -42,7 +45,7 @@ export const store = {
   },
 
   async fetchTaskById(id) {
-    return await (await fetch(`api/tasks/${id}`)).json();
+    return await (await fetch(`${apiUrl}/tasks/${id}`)).json();
   },
 
   getTaskById(id) {
@@ -57,7 +60,7 @@ export const store = {
       throw new Error(`Invalid task id: ${taskId}`);
     }
 
-    await fetch(`api/tasks/${taskId}`, {
+    await fetch(`${apiUrl}/tasks/${taskId}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -69,7 +72,7 @@ export const store = {
   },
 
   async reloadTasks() {
-    const res = await fetch("api/tasks");
+    const res = await fetch(`${apiUrl}/tasks`);
     const data = await res.json();
     this.state.tasks = data;
   },

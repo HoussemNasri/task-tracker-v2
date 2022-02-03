@@ -3,31 +3,25 @@
 <template>
    <div class="container">
       <Header title="Task Tracker" />
-      <div v-show="sharedState.isAddTaskShown">
-         <AddTask />
-      </div>
-      <Tasks :tasks="sharedState.tasks" />
+      <router-view></router-view>
+      <Footer />
    </div>
 </template>
 
 <script>
    import Header from "./components/Header.vue";
-   import Tasks from "./components/Tasks.vue";
-   import AddTask from "./components/AddTask.vue";
+   import Footer from "./components/Footer.vue";
 
    import { store } from "./Store.js";
 
    export default {
       name: "App",
-      components: { Header, Tasks, AddTask },
+      components: { Header, Footer },
       data() {
          return {
             privateState: {},
             sharedState: store.state,
          };
-      },
-      async created() {
-         await store.reloadTasks();
       },
    };
 </script>

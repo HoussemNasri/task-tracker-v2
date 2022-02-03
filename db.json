@@ -4,7 +4,7 @@
       "id": "2",
       "text": "Meeting at school",
       "day": "March 6th at 2:30pm",
-      "reminder": true
+      "reminder": false
     },
     {
       "id": "3",
@@ -13,9 +13,9 @@
       "reminder": false
     },
     {
-      "id": 910834,
-      "text": "Study English",
-      "day": "June 21st at 10:00am",
+      "id": 128439,
+      "text": "Meeting with boss",
+      "day": "February 2nd at 3:00pm",
       "reminder": true
     }
   ]

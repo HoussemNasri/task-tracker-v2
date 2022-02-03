@@ -1,10 +1,9 @@
 <template>
    <header>
       <h1>{{ title }}</h1>
-      <Button
-         @click="toggleAddTask()"
-         :title="state.isAddTaskShown ? 'Close' : 'Add Task'"
-         :color="state.isAddTaskShown ? 'red' : 'green'" />
+      <Button v-show="isInHomePage" @click="toggleAddTask()"
+      :title="state.isAddTaskShown ? 'Close' : 'Add Task'"
+      :color="state.isAddTaskShown ? 'red' : 'green'" />
    </header>
 </template>
 
@@ -31,6 +30,11 @@
       methods: {
          toggleAddTask() {
             this.state.isAddTaskShown = !this.state.isAddTaskShown;
+         },
+      },
+      computed: {
+         isInHomePage() {
+            return this.$route.path == "/";
          },
       },
    };
